@@ -1,0 +1,36 @@
+.navbar {
+  font-family: "Julius Sans One", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 20px 60px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 40px;
+  letter-spacing: 2px;
+  font-weight: 300;
+  margin-right: 10px;
+}
+
+.logo-image img {
+  width: 40px;
+  height: 40px;
+}
+
+.navbar-right a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+.navbar-right a:hover {
+  text-decoration: underline;
+}

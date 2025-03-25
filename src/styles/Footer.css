@@ -1,0 +1,40 @@
+.footer {
+  margin-top: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 50px;
+  background-color: white;
+  border-top: 5px solid #90ee90;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.logo-text {
+  font-family: "Julius Sans One", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.logo-image {
+  width: 40px;
+  height: auto;
+}
+
+.social-icons a img {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
