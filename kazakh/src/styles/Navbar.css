@@ -5,6 +5,9 @@
   align-items: center;
   background-color: white;
   padding: 20px 60px;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .navbar-left {
@@ -24,6 +27,11 @@
   height: 40px;
 }
 
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
 .navbar-right a {
   margin-left: 30px;
   text-decoration: none;
@@ -33,4 +41,81 @@
 
 .navbar-right a:hover {
   text-decoration: underline;
+}
+
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.menu-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 15px 30px;
+  }
+
+  .logo-text {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .navbar-right {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-right.active {
+    display: flex;
+  }
+
+  .navbar-right a {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .logo-text {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .logo-text {
+    font-size: 24px;
+  }
+
+  .logo-image img {
+    width: 32px;
+    height: 32px;
+  }
 }

@@ -1,45 +1,233 @@
+.game-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 20px auto;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  min-height: calc(100vh - 40px);
+}
+
+.scrollable-content {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .bins-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
 }
 
 .bin {
-  width: 200px;
-  min-height: 250px;
-  background-color: lightgray;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 10px;
-
+  width: 100%;
+  min-height: 300px;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* !!! */
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
   align-items: start;
 }
 
+.bin:hover {
+  transform: translateY(-5px);
+}
+
+.bin h4 {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
 .words-container {
-  margin-top: 30px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  justify-content: center;
+  max-width: 1200px;
+  padding: 0 20px;
+  width: 100%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 20px;
 }
 
 .word {
-  max-width: 80px;
+  width: 100%;
   word-wrap: break-word;
   white-space: normal;
   text-align: center;
   background-color: white;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 12px 16px;
+  border-radius: 8px;
   cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.word:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .buttons {
-  margin-top: 20px;
+  margin: 30px auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   align-items: center;
+  max-width: 400px;
+  width: 100%;
+  padding: 0 20px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (min-width: 2560px) {
+  .bins-container {
+    max-width: 2400px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+
+  .bin {
+    min-height: 400px;
+  }
+
+  .word {
+    font-size: 1.2rem;
+    padding: 15px 20px;
+  }
+
+  .bin h4 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 1440px) {
+  .bins-container {
+    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .bin {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .bins-container {
+    max-width: 900px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .words-container {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .bins-container {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .bin {
+    min-height: 250px;
+    padding: 15px;
+  }
+
+  .word {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .bin h4 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+    margin: 10px;
+    padding: 15px;
+    min-height: calc(100vh - 20px);
+  }
+
+  .bins-container {
+    grid-template-columns: 1fr;
+  }
+
+  .bin {
+    min-height: 200px;
+    padding: 12px;
+  }
+
+  .words-container {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    padding: 15px;
+    margin: 20px 0;
+  }
+
+  .word {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .bin h4 {
+    font-size: 1rem;
+  }
+
+  .buttons {
+    padding: 15px;
+    margin: 20px 0;
+  }
+}
+
+/* Landscape orientation for mobile devices */
+@media (max-height: 480px) and (orientation: landscape) {
+  .game-container {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .bins-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .bin {
+    min-height: 150px;
+  }
+
+  .words-container {
+    margin: 15px 0;
+    padding: 10px;
+  }
+
+  .word {
+    padding: 6px 8px;
+  }
+
+  .buttons {
+    margin: 15px 0;
+    padding: 10px;
+  }
 }

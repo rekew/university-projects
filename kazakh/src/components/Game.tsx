@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Button from "./Button";
@@ -24,6 +24,7 @@ type DragItem = {
 
 type TrashBinProps = {
   name: BinType;
+  displayName: string;
   items: string[];
   onDrop: (binName: BinType, word: string, from: BinType | "WORDS") => void;
 };
@@ -41,6 +42,15 @@ const bins: BinType[] = [
   "ORGANIC",
   "NOT_RECYCLE",
 ];
+
+const binNames: { [key in BinType]: string } = {
+  PAPER: "Қағаз",
+  METAL: "Металл",
+  GLASS: "Шыны",
+  PLASTIC: "Пластик",
+  ORGANIC: "Органикалық",
+  NOT_RECYCLE: "Қайта өңдеуге болмайды",
+};
 
 const correctAnswers: BinContentsType = {
   PAPER: ["қағаз", "дәптер", "газет"],
@@ -71,6 +81,28 @@ const GameBoard = () => {
   const [unassignedWords, setUnassignedWords] =
     useState<string[]>(initialWords);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      if (!containerRef.current) return;
+
+      const container = containerRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const scrollSpeed = 10; // pixels per frame
+
+      if (e.clientY < containerRect.top + 100) {
+        container.scrollTop -= scrollSpeed;
+      } else if (e.clientY > containerRect.bottom - 100) {
+        container.scrollTop += scrollSpeed;
+      }
+    };
+
+    document.addEventListener("dragover", handleDragOver);
+    return () => document.removeEventListener("dragover", handleDragOver);
+  }, []);
+
   const handleDrop = (
     binName: BinType,
     word: string,
@@ -98,7 +130,11 @@ const GameBoard = () => {
         if (dropped.includes(item)) score++;
       });
     });
-    alert(`Сіздің нәтижеңіз: ${score}`);
+    alert(
+      `Сіздің нәтижеңіз: ${score}/${
+        Object.values(correctAnswers).flat().length
+      }`
+    );
   };
 
   const showSolution = () => {
@@ -108,31 +144,41 @@ const GameBoard = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="bins-container">
-        {bins.map((bin) => (
-          <TrashBin
-            key={bin}
-            name={bin}
-            items={binContents[bin]}
-            onDrop={handleDrop}
-          />
-        ))}
-      </div>
+      <div className="game-container">
+        <div ref={containerRef} className="scrollable-content">
+          <div className="bins-container">
+            {bins.map((bin) => (
+              <TrashBin
+                key={bin}
+                name={bin}
+                displayName={binNames[bin]}
+                items={binContents[bin]}
+                onDrop={handleDrop}
+              />
+            ))}
+          </div>
 
-      <div className="words-container">
-        {unassignedWords.map((word) => (
-          <DraggableWord key={word} word={word} fromBin="WORDS" />
-        ))}
-      </div>
+          <div className="words-container">
+            {unassignedWords.map((word) => (
+              <DraggableWord key={word} word={word} fromBin="WORDS" />
+            ))}
+          </div>
 
-      <div className="buttons">
-        <Button text="Тексеру" width="120px" onClick={checkAnswers} />
-        <Button text="Шешімді көрсету" width="200px" onClick={showSolution} />
+          <div className="buttons">
+            <Button text="Тексеру" width="120px" onClick={checkAnswers} />
+            <Button
+              text="Шешімді көрсету"
+              width="200px"
+              onClick={showSolution}
+            />
+          </div>
+        </div>
       </div>
     </DndProvider>
   );
 };
-const TrashBin = ({ name, items, onDrop }: TrashBinProps) => {
+
+const TrashBin = ({ name, displayName, items, onDrop }: TrashBinProps) => {
   const [{ isOver }, drop] = useDrop<DragItem, void, { isOver: boolean }>(
     () => ({
       accept: "WORD",
@@ -147,9 +193,9 @@ const TrashBin = ({ name, items, onDrop }: TrashBinProps) => {
     <div
       ref={drop as unknown as React.RefObject<HTMLDivElement>}
       className="bin"
-      style={{ backgroundColor: isOver ? "#ccc" : "lightgray" }}
+      style={{ backgroundColor: isOver ? "#e0e0e0" : "#f5f5f5" }}
     >
-      <h4>{name}</h4>
+      <h4>{displayName}</h4>
       {items.map((item) => (
         <DraggableWord key={item} word={item} fromBin={name} />
       ))}

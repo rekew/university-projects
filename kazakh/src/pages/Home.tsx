@@ -6,39 +6,9 @@ import Footer from "../components/Footer";
 import Product1 from "../assets/Product1.svg";
 import Product2 from "../assets/Product2.svg";
 import Product3 from "../assets/Product3.svg";
-import HeroImage from "../assets/HeroImage.png";
-import HeroImage2 from "../assets/HeroImage2.jpeg";
-import HeroImage3 from "../assets/HeroImage3.jpeg";
 import "../styles/Home.css";
 
 function Home() {
-  const newsData = [
-    {
-      title: `Арал теңізінде су көлемі ұлғайды`,
-      description: `Солтүстік Аралды сақтау жобасының алғашқы кезеңінің нәтижесінде теңіздегі су көлемі 42 <br />
-          пайызға ұлғайды, – деп хабарлайды <a href="https://kaz.tengrinews.kz/kazakhstan_news/aral-tenznde-su-kolem-ulgaydyi-364674/">Tengrinews.kz</a> тілшісі министрліктің баспасөз қызметіне <br />
-          сілтеме жасап.`,
-      image: HeroImage,
-      link: "https://kaz.tengrinews.kz/kazakhstan_news/aral-tenznde-su-kolem-ulgaydyi-364674/",
-    },
-    {
-      title: ` Қызыл түске боялған Каспий Ақтау тұрғындарын шошытты`,
-      description: `Ақтауда 1-шағынаудандағы Каспий теңізінің жағалауы қызыл түске боялған. Жергілікті тұрғындар
-       дабыл қағып отыр, алайда экологтар ақтаулықтарды
-        сабырға шақырды, - деп хабарлайды <a href = "https://kaz.tengrinews.kz/kazakhstan_news/kyizyil-tuske-boyalgan-kaspiy-aktau-turgyindaryin-365292/">Tengrinews.kz</a> тілшісі.`,
-      image: HeroImage2,
-      link: "https://kaz.tengrinews.kz/kazakhstan_news/kyizyil-tuske-boyalgan-kaspiy-aktau-turgyindaryin-365292/",
-    },
-    {
-      title: `Атырауда ауа сапасы он есеге дейін нашарлап кеткен`,
-      description: `Кейінгі күндері Атырауда ауа сапасы күрт нашарлап, лас заттардың шекті мөлшері 
-      бірнеше есеге артқан, - деп хабарлайды <a href = "https://kaz.tengrinews.kz/kazakhstan_news/atyirauda-aua-sapasyi-on-esege-deyn-nasharlap-ketken-365875/">Tengrinews.kz</a>
-      тілшісі "Ақ Жайыққа" сілтеме жасап.`,
-      image: HeroImage3,
-      link: "https://kaz.tengrinews.kz/kazakhstan_news/atyirauda-aua-sapasyi-on-esege-deyn-nasharlap-ketken-365875/",
-    },
-  ];
-
   function handleClick(link: string) {
     window.location.href = link;
   }
@@ -47,7 +17,7 @@ function Home() {
     <>
       <Navbar />
       <div className="landing">
-        <NewsSlider newsItems={newsData} />
+        <NewsSlider />
 
         <div className="products">
           <ProductCard
@@ -95,9 +65,8 @@ function Home() {
         </section>
 
         <GameBoard />
-
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }
